@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,7 +41,7 @@ public class basicMovement : MonoBehaviour
         if(rb.velocity.magnitude < max_speed){
             Vector2 movement = new Vector2(x_movement,0);
             //instead of adjusting position, we apply a force to the rigidbody to move it
-            rb.AddForce(movement_scalar * movement);
+            rb.AddForce(5.0f*movement_scalar * movement);
         }
         
         //jumping
@@ -68,12 +69,20 @@ public class basicMovement : MonoBehaviour
     //check to see if the collision passed to this method is with the ground
     private bool CollisionIsWithGround(Collision2D collision){
         bool is_with_ground = false;
-        foreach(ContactPoint2D c in collision.contacts){
+        /*foreach(ContactPoint2D c in collision.contacts){
             Vector2 collision_direction_vector = c.point - rb.position;
             if(collision_direction_vector.y < 0){
                 //collision happened below the character, so this collision was with the ground
                 is_with_ground = true;
             }
+        }*/
+
+        //alternative method to check if one can jump
+        //the tolerance is 0.01, which can be changed
+        if (Math.Abs(rb.velocity.y) < 0.01)
+        {
+            is_with_ground = true;
+
         }
 
         return is_with_ground;
