@@ -36,8 +36,6 @@ public class SceneContainer : MonoBehaviour
         //check for is_rotating before allowing any inputs
         if(Input.GetButtonDown("RotateClockwise") && !is_rotating)
         {
-            Debug.Log(Time.time - camera_rotation_start_time);
-            Debug.Log("2: " + camera_rotation_time);
             RotateClockwise();
         }
         else if(Input.GetButtonDown("RotateCounterClockwise") && !is_rotating)
